@@ -4,10 +4,10 @@ $text = 'основной элемент ферма гау является яв
 однако для большой прогон является пример полигональный в этот случай конструкция ферма  ферма ферма 
 значительно усложняться и и она потеряет дом дом дом одно из своих своих своих своих своих своих преимуществ простота.
 Упрощение:';
-$arr = preg_split("/[\s,.!-]+/", trim($text, '. \t\n\r\0\x0B'));
+$arr = preg_split("/[\s,.!-]+/", trim($text, '. \t\n\r\0\x0B')); //разбиваем на массив
 
 $wordRepead = [];
-foreach (array_count_values($arr) as $word => $count) {
+foreach (array_count_values($arr) as $word => $count) { //получаем количество повторений сслов больше 1 раза
     if ($count > 1) {
         $wordRepead[$word] = $count;
     }
@@ -15,15 +15,16 @@ foreach (array_count_values($arr) as $word => $count) {
 
 echo 'top ' . (count($wordRepead));
 echo '<br>';
-arsort($wordRepead);
+arsort($wordRepead); //сортировка значений по убыванию
 $wordSort = [];
 
-foreach ($wordRepead as $word => $count) {
-    $sortWord = array_keys($wordRepead, $count);
-    $sortWord = array_fill_keys($sortWord, $count);
-    ksort($sortWord);
+foreach ($wordRepead as $word => $count) { //сортируем по алфавиту слова которые встречаются одинаковое количество раз в тексте
+    $sortWord = array_keys($wordRepead, $count); // получаем все ключи которые имет одно и то же значение
+    $sortWord = array_fill_keys($sortWord, $count); //создаём массив где ключь слово, значение - количество повторений (для
+    // сортировки по алфавиту только тех слов которые встречаются одинаковое количество раз)
+    ksort($sortWord); //сортировка по алфавиту слов с одинаковым значением
     $wordSort[] = $sortWord;
-    while (($i = array_search($count, $wordRepead)) !== false) {
+    while (($i = array_search($count, $wordRepead)) !== false) { //удаляю элемент что бы выполнить поиск слов с другим значением
         unset($wordRepead[$i]);
     }
 }
